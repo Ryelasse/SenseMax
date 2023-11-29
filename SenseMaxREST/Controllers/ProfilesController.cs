@@ -73,18 +73,37 @@ namespace SenseMaxREST.Controllers
         // PUT api/<ProfilesController>/5
         [HttpPut]
         [Route("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Profile newValues)
         {
-
-
+            try
+            {
+                Profile? oldProfile = _data.UpdateProfile(id, newValues);
+                return Created("Oenskede profil blev opdateret", newValues);
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
         }
 
         // DELETE api/<ProfilesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                Profile? profile = _data.DeleteProfile(id);
+                return Ok($"profil med id {id} blev slettet");
+            } catch (Exception ex)
+            {
+                return NotFound($"Profil med id {id} blev ikke fundet");
+            }
+
         }
     }
 }
