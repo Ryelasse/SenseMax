@@ -2,14 +2,6 @@
 {
     public class Artwork
     {
-
-        const double ValidTemp = 10;
-        const double UnderTemp = -15;
-        const double OverTemp = 30;
-
-        const double Mitemp = 5;
-        const double Matemp = 25;
-
         public int ArtId { get; set; }
         public string Name { get; set; }
         public double ActualTemp { get; set; }
@@ -44,7 +36,6 @@
             }
 
         }
-
         public void ValidateHumidity()
         {
             if (MinHumidity > ActualHumidity)
@@ -56,13 +47,11 @@
                 throw new ArgumentOutOfRangeException(nameof(MaxHumidity), $"The Humidity is too high, it must be lower than {MaxHumidity}!");
             }
         }
-
         public void Validate()
         {
             ValidateHumidity();
             ValidateTemp();
         }
-
         public override string ToString()
         {
             return $"{{{nameof(ArtId)}={ArtId.ToString()}, {nameof(Name)}={Name}, {nameof(ActualTemp)}={ActualTemp.ToString()}, {nameof(ActualHumidity)}={ActualHumidity.ToString()}, {nameof(MinTemp)}={MinTemp.ToString()}, {nameof(MaxTemp)}={MaxTemp.ToString()}, {nameof(MinHumidity)}={MinHumidity.ToString()}, {nameof(MaxHumidity)}={MaxHumidity.ToString()}}}";
