@@ -10,8 +10,6 @@ namespace SenseRepositoryDB
         {
             builder.UseSqlServer(Secret.GetConnectionString);
         }
-        public ProfileDBContext(DbContextOptions<ProfileDBContext> options) : base(options) { }
-
         public DbSet<Profile> Profiles { get; set; }
     }
 }
