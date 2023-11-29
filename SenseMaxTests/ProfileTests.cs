@@ -50,5 +50,32 @@ namespace SenseMax.Tests
         }
         
         #endregion
+
+        #region Test Password Property
+
+        [TestMethod]
+        [DataRow("Passw0rd")]
+        [DataRow("SecurePwd123")]
+        [DataRow("MyP@ssw0rd")]
+        public void SetPasswordTestOk(string validPasssword)
+        {
+            // act
+            instance.Password = validPasssword;
+            
+            // assert
+            Assert.AreEqual(validPasssword, instance.Password);
+        }
+
+        [TestMethod]
+        [DataRow("NoDigitsHere")]
+        [DataRow("lowercaseonly")]
+        [DataRow("ALLUPPERCASE")]
+        public void SetPasswordTestFail(string invalidPassword)
+        {
+            // act & assert
+            Assert.ThrowsException<ArgumentException>(() => instance.Password = invalidPassword);
+        }
+
+        #endregion
     }
 }
