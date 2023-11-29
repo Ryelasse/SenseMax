@@ -8,33 +8,37 @@ namespace SenseMax
 {
     public class Exhibit
     {
-        private int _ExhibitId;
+        private int _exhibitId;
 
         public int ExhibitId
         {
             get
             {
-                return _ExhibitId;
+                return _exhibitId;
             }
             set
             {
-                if (_ExhibitId != value)
+                if (_exhibitId == value)
                 {
-                    _ExhibitId = value;
+                    _exhibitId = value;
                 }
                 else throw new ArgumentException("Der skal være et id");
             }
         }
-        public string _Name;
+        private string _name;
         public string Name
         {
             get
-            { return _Name; }
+            { return _name; }
             set
             {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), "Navn kan ikke være null");
+                }
                 if (value.Length <= 2)
                 {
-                    _Name = value;
+                    _name = value;
                 }
                 else
                 {
@@ -61,4 +65,4 @@ namespace SenseMax
         }
     }
 }
-}
+
