@@ -36,7 +36,7 @@ namespace SenseMax
                 {
                     throw new ArgumentNullException(nameof(value), "Navn kan ikke være null");
                 }
-                if (value.Length <= 2)
+                if (value.Length >= 2)
                 {
                     _name = value;
                 }
@@ -57,6 +57,10 @@ namespace SenseMax
             Name = name;
             ActualVcount = actualVcount;
             MaxVcount = maxVcount;
+        }
+
+        public Exhibit()
+        {
         }
 
         public override string ToString()
