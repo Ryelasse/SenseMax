@@ -11,6 +11,7 @@
         public double MinHumidity { get; set; }
         public double MaxHumidity { get; set; }
 
+        public Artwork() { }
         public Artwork(int artid, string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity)
         {
             ArtId = artid;

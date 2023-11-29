@@ -11,34 +11,42 @@ namespace SenseMax.Tests
     [TestClass()]
     public class ArtworkTests
     {
-        [TestMethod()]
-        public void ArtworkTest()
+        private Artwork correctInstance;
+        private Artwork wrongInstance;
+        private Artwork nearInstanceUpper;
+        private Artwork nearInstanceLower;
+
+        [TestInitialize]
+        public void TestInitialize()
         {
-            Assert.Fail();
+            // arrange
+            correctInstance = new Artwork(1, "Magnificent Chef", 27.5, 50, 25, 30, 45, 60);
+            wrongInstance = new Artwork(1, "Magnificent Chefs", 34, 64, 25, 30, 45, 60);
+            nearInstanceUpper = new Artwork(1, "Magnificent Chefu", 29.99, 59.99, 25, 30, 45, 60);
+            nearInstanceLower = new Artwork(1, "Magnificent Chefu", 25.01, 45.01, 25, 30, 45, 60);
         }
 
         [TestMethod()]
-        public void ValidateTempTest()
+        public void ValidateTempHumiTestOK()
         {
-            Assert.Fail();
+            //act
+            correctInstance.Validate();
         }
 
         [TestMethod()]
-        public void ValidateHumidityTest()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void ValidateTempHumiTestFail()
         {
-            Assert.Fail();
+            //act
+            wrongInstance.Validate();
         }
 
         [TestMethod()]
-        public void ValidateTest()
+        public void ValidateTempHumiTestNearOK()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void ToStringTest()
-        {
-            Assert.Fail();
+            //act
+            nearInstanceUpper.Validate();
+            nearInstanceLower.Validate();
         }
     }
 }
