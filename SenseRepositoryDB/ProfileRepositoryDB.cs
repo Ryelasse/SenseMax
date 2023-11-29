@@ -13,24 +13,35 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
 
     public Profile AddProfile(Profile profile)
     {
+        try
+        {
         _context.Profiles.Add(profile);
         _context.SaveChanges();
         return profile;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
     }
 
     public Profile? DeleteProfile(int id)
     {
-        Profile foundProfile = _context.Profiles.ToList<Profile>().Find(x => x.ProfileId == id);
+        Profile foundProfile = GetProfileById(id);
         if (foundProfile != null)
         {
             _context.Profiles.Remove(foundProfile);
             _context.SaveChanges();
         }
+        else
+        {
+            throw new KeyNotFoundException($"Id: {id} findes ikke");
+        }
 
         return foundProfile;
     }
 
-    public IEnumerable<Profile> GetProfile(int? idAfter = null, string? nameIncludes = null, string? orderBy = null)
+    public IEnumerable<Profile> GetProfiles(int? idAfter = null, string? nameIncludes = null, string? orderBy = null)
     {
         IQueryable<Profile> filter = _context.Profiles.AsQueryable();
 
@@ -60,9 +71,19 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         return filter;
     }
 
+    public Profile? GetProfileById(int id)
+    {
+        Profile? profile = _context.Profiles.FirstOrDefault(p => p.ProfileId == id);
+        if (profile == null)
+        {
+            throw new KeyNotFoundException($"Id: {id} findes ikke");
+        }
+        return profile;
+    }
+
     public Profile? UpdateProfile(int id, Profile data)
     {
-        Profile? profileToUpdate = _context.Profiles.FirstOrDefault(p => p.ProfileId == id);
+        Profile? profileToUpdate = GetProfileById(id);
 
         if (profileToUpdate != null)
         {
@@ -71,6 +92,10 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
 
             _context.Profiles.Update(profileToUpdate);
             _context.SaveChanges();
+        }
+        else
+        {
+            throw new KeyNotFoundException($"Id: {id} findes ikke");
         }
         return profileToUpdate;
     }
