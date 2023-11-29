@@ -15,7 +15,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
     {
         try
         {
-        _context.Profiles.Add(profile);
+        _context.Profile.Add(profile);
         _context.SaveChanges();
         return profile;
         }
@@ -30,7 +30,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         Profile foundProfile = GetProfileById(id);
         if (foundProfile != null)
         {
-            _context.Profiles.Remove(foundProfile);
+            _context.Profile.Remove(foundProfile);
             _context.SaveChanges();
         }
         else
@@ -43,7 +43,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
 
     public IEnumerable<Profile> GetProfiles(int? idAfter = null, string? nameIncludes = null, string? orderBy = null)
     {
-        IQueryable<Profile> filter = _context.Profiles.AsQueryable();
+        IQueryable<Profile> filter = _context.Profile.AsQueryable();
 
         if (nameIncludes != null)
         {
@@ -68,12 +68,18 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
                     throw new ArgumentException("Unknown filter: " + orderBy);
             }
         }
+
+        if (!filter.Any())
+        {
+            throw new Exception("Listen er tom");
+        }
+
         return filter;
     }
 
     public Profile? GetProfileById(int id)
     {
-        Profile? profile = _context.Profiles.FirstOrDefault(p => p.ProfileId == id);
+        Profile? profile = _context.Profile.FirstOrDefault(p => p.ProfileId == id);
         if (profile == null)
         {
             throw new KeyNotFoundException($"Id: {id} findes ikke");
@@ -90,7 +96,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
             profileToUpdate.ProfileName = data.ProfileName;
             profileToUpdate.Password = data.Password;
 
-            _context.Profiles.Update(profileToUpdate);
+            _context.Profile.Update(profileToUpdate);
             _context.SaveChanges();
         }
         else

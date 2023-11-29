@@ -12,7 +12,7 @@ namespace SenseRepositoryDB
         {
             get
             {
-                return "Data Source=mssql9.unoeuro.com;User ID=lntech_dk;Password=trEG49cf2A3FBRxp5ygz;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                return "Data Source=mssql15.unoeuro.com;Initial Catalog=lntech_dk_db_sensemax;User ID=lntech_dk;Password=trEG49cf2A3FBRxp5ygz;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
             }
         }
     }

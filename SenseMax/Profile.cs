@@ -20,9 +20,8 @@ public class Profile
 
     public Profile() {}
 
-    public Profile(int profileId, string profileName, string password, Type profileType)
+    public Profile(string profileName, string password, Type profileType)
     {
-        ProfileId = profileId;
         ProfileName = profileName;
         Password = password;
         ProfileType = profileType;
@@ -30,8 +29,8 @@ public class Profile
     #endregion
 
     #region Properties
-    
-    public int ProfileId { get; set; }
+
+    public int ProfileId { get; private set; }
 
     public string ProfileName
     {
@@ -72,7 +71,7 @@ public class Profile
 
     public override string ToString()
     {
-        return $"Id: {ProfileId}, Name: {ProfileName}, Password: {Password}, Profile: {ProfileType.ToString()}";
+        return $"ProfileId: {ProfileId}, Name: {ProfileName}, Password: {Password}, Profile: {ProfileType.ToString()}";
     }
     
     #endregion
