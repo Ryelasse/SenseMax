@@ -11,22 +11,44 @@ namespace SenseMax.Tests
     [TestClass()]
     public class ProfileTests
     {
-        [TestMethod()]
-        public void ProfileTest()
+        #region Test Initialize
+
+        private Profile? instance; //instance variable, used to store an instance of Profile, that i can use in my test methods.
+
+        [TestInitialize]
+        public void TestInitialize()
         {
-            Assert.Fail();
+            // arrange
+            instance = new Profile();
+        }
+        
+        #endregion
+        
+        #region Test ProfileName Property
+
+        [TestMethod]
+        [DataRow("Ziggy")]
+        [DataRow("Eleanor")]
+        [DataRow("Peter")]
+        public void SetProfileNameTestOk(string validName)
+        {
+            // act
+            instance.ProfileName = validName;
+            
+            // assert
+            Assert.AreEqual(validName, instance.ProfileName);
         }
 
-        [TestMethod()]
-        public void ProfileTest1()
+        [TestMethod]
+        [DataRow(null)]
+        [DataRow("")]
+        [DataRow("B")]
+        public void SetProfileNameTestFail(string invalidName)
         {
-            Assert.Fail();
+            // act & arrange
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => instance.ProfileName = invalidName);
         }
-
-        [TestMethod()]
-        public void ToStringTest()
-        {
-            Assert.Fail();
-        }
+        
+        #endregion
     }
 }
