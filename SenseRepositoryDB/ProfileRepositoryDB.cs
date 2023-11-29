@@ -11,15 +11,19 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         _context = dbContext;
     }
 
-    public Profile AddProfile(Profile profile)
+    public Profile? AddProfile(Profile profile)
     {
         try
         {
-        _context.Profile.Add(profile);
-        _context.SaveChanges();
-        return profile;
+            _context.Profile.Add(profile);
+            _context.SaveChanges();
+            return profile;
         }
-        catch (Exception ex)
+        catch (ArgumentOutOfRangeException aex)
+        {
+            return null;
+        }
+        catch (ArgumentException aoorex)
         {
             return null;
         }
@@ -27,7 +31,8 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
 
     public Profile? DeleteProfile(int id)
     {
-        Profile foundProfile = GetProfileById(id);
+        Profile? foundProfile = GetProfileById(id);
+        
         if (foundProfile != null)
         {
             _context.Profile.Remove(foundProfile);
@@ -37,7 +42,6 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         {
             throw new KeyNotFoundException($"Id: {id} findes ikke");
         }
-
         return foundProfile;
     }
 
@@ -65,13 +69,13 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
                     filter = filter.OrderBy(p => p.ProfileName);
                     break;
                 default:
-                    throw new ArgumentException("Unknown filter: " + orderBy);
+                    throw new ArgumentException("Ukendt filter: " + orderBy);
             }
         }
 
         if (!filter.Any())
         {
-            throw new Exception("Listen er tom");
+            throw new InvalidOperationException("Listen er tom.");
         }
 
         return filter;
@@ -80,9 +84,10 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
     public Profile? GetProfileById(int id)
     {
         Profile? profile = _context.Profile.FirstOrDefault(p => p.ProfileId == id);
+        
         if (profile == null)
         {
-            throw new KeyNotFoundException($"Id: {id} findes ikke");
+            throw new KeyNotFoundException($"Id: {id} findes ikke i databasen");
         }
         return profile;
     }
@@ -101,7 +106,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         }
         else
         {
-            throw new KeyNotFoundException($"Id: {id} findes ikke");
+            throw new KeyNotFoundException($"Id: {id} findes ikke i databasen");
         }
         return profileToUpdate;
     }

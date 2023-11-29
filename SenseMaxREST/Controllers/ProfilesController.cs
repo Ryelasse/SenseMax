@@ -27,7 +27,8 @@ namespace SenseMaxREST.Controllers
             {
                 IEnumerable<Profile> profiles = _data.GetProfiles();
                 return Ok(profiles);
-            } catch (Exception ex)
+            } 
+            catch (InvalidOperationException ioex)
             {
                 return NoContent();
             }
@@ -46,7 +47,7 @@ namespace SenseMaxREST.Controllers
                 Profile foundProfile = _data.GetProfileById(id);
                 return Ok(foundProfile);
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException knfex)
             {
                 return NotFound();
             }
@@ -55,7 +56,7 @@ namespace SenseMaxREST.Controllers
         // POST api/<ProfilesController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
         public IActionResult Post([FromBody] Profile profile)
         {
@@ -63,9 +64,14 @@ namespace SenseMaxREST.Controllers
             {
                 Profile NewProfile = _data.AddProfile(profile);
                 return Created("A new profile was created: ", profile);
-            }catch (Exception ex)
+            }
+            catch (ArgumentOutOfRangeException ex)
             {
-                return NotFound();
+                return BadRequest("Profilnavn opfylder ikke kravene.");
+            } 
+            catch (ArgumentException aex)
+            {
+                return BadRequest("Kodeordet opfylder ikke kravene.");
             }
 
         }
@@ -82,9 +88,9 @@ namespace SenseMaxREST.Controllers
                 Profile? oldProfile = _data.UpdateProfile(id, newValues);
                 return Created("Oenskede profil blev opdateret", newValues);
             }
-            catch (Exception ex)
+            catch (KeyNotFoundException knfex)
             {
-                return NotFound();
+                return NotFound($"Id {id} blev ikke fundet i databasen.");
             }
         }
 
@@ -99,7 +105,8 @@ namespace SenseMaxREST.Controllers
             {
                 Profile? profile = _data.DeleteProfile(id);
                 return Ok($"profil med id {id} blev slettet");
-            } catch (Exception ex)
+            } 
+            catch (KeyNotFoundException ex)
             {
                 return NotFound($"Profil med id {id} blev ikke fundet");
             }
