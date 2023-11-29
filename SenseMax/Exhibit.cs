@@ -18,7 +18,7 @@ namespace SenseMax
             }
             set
             {
-                if (_exhibitId != value)
+                if (_exhibitId == value)
                 {
                     _exhibitId = value;
                 }
@@ -65,4 +65,4 @@ namespace SenseMax
         }
     }
 }
-}
+
