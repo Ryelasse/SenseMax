@@ -3,9 +3,14 @@ using SenseMax;
 
 namespace SenseRepositoryDB
 {
-    public class ProfileDbContext : DbContext
+    public class ProfileDBContext : DbContext
     {
-        public ProfileDbContext(DbContextOptions<ProfileDbContext> options) : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            builder.UseSqlServer(Secret.GetConnectionString);
+        }
+        public ProfileDBContext(DbContextOptions<ProfileDBContext> options) : base(options) { }
 
         public DbSet<Profile> Profiles { get; set; }
     }

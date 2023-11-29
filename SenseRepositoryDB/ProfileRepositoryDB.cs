@@ -3,9 +3,9 @@ using SenseMax;
 
 public class ProfileRepositoryDB : IProfileRepositoryDB
 {
-    private readonly ProfileDbContext _context;
+    private readonly ProfileDBContext _context;
 
-    public ProfileRepositoryDB(ProfileDbContext dbContext)
+    public ProfileRepositoryDB(ProfileDBContext dbContext)
     {
         dbContext.Database.EnsureCreated();
         _context = dbContext;
