@@ -24,8 +24,9 @@ builder.Services.AddDbContext<ExhibitDBContext>(options =>
 builder.Services.AddScoped<IRepositoryDB<Profile>, ProfileRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Artwork>, ArtworkRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Exhibit>, ExhibitRepositoryDB>();
+
 builder.Services.AddCors(option =>
-    option.AddPolicy("Allow All",
+    option.AddPolicy("AllowAll",
     builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
     );
 
@@ -39,6 +40,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseCors("AllowAll");
 
 app.MapControllers();
 
