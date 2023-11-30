@@ -17,9 +17,13 @@ builder.Services.AddDbContext<ProfileDBContext>(options =>
 builder.Services.AddDbContext<ArtworkDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
 
+builder.Services.AddDbContext<ExhibitDBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
+
 // Registrer dit repository som en scoped service.
 builder.Services.AddScoped<IRepositoryDB<Profile>, ProfileRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Artwork>, ArtworkRepositoryDB>();
+builder.Services.AddScoped<IRepositoryDB<Exhibit>, ExhibitRepositoryDB>();
 
 builder.Services.AddCors(option =>
     option.AddPolicy("Allow All",
