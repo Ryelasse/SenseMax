@@ -17,9 +17,13 @@ namespace SenseRepositoryDB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Artwork>()
-                .Property(p => p.ArtId)
+                .HasKey(a => a.ArtworkId);
+
+            modelBuilder.Entity<Artwork>()
+                .Property(a => a.ArtworkId)
                 .ValueGeneratedOnAdd();
         }
+
 
         public DbSet<Artwork> Artwork { get; set; }
     }
