@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SenseMax;
+using SenseRepositoryDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +76,6 @@ namespace SenseMax.Tests
             // act & assert
             Assert.ThrowsException<ArgumentException>(() => instance.Password = invalidPassword);
         }
-
         #endregion
     }
 }

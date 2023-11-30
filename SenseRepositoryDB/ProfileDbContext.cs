@@ -3,10 +3,24 @@ using SenseMax;
 
 namespace SenseRepositoryDB
 {
-    public class ProfileDbContext : DbContext
+    public class ProfileDBContext : DbContext
     {
-        public ProfileDbContext(DbContextOptions<ProfileDbContext> options) : base(options) { }
+        public ProfileDBContext(DbContextOptions<ProfileDBContext> options) : base(options)
+        {
+        }
 
-        public DbSet<Profile> Profiles { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            builder.UseSqlServer(Secret.GetConnectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Profile>()
+                .Property(p => p.ProfileId)
+                .ValueGeneratedOnAdd();
+        }
+
+        public DbSet<Profile> Profile { get; set; }
     }
 }

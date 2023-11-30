@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SenseMax\SenseMax.csproj" />
+    <ProjectReference Include="..\SenseRepositoryDB\SenseRepositoryDB.csproj" />
   </ItemGroup>
 
 </Project>
