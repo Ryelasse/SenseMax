@@ -20,10 +20,10 @@ namespace SenseMax.Tests
         public void TestInitialize()
         {
             // arrange
-            correctInstance = new Artwork(1, "Magnificent Chef", 27.5, 50, 25, 30, 45, 60);
-            wrongInstance = new Artwork(1, "Magnificent Chefs", 34, 64, 25, 30, 45, 60);
-            nearInstanceUpper = new Artwork(1, "Magnificent Chefu", 29.99, 59.99, 25, 30, 45, 60);
-            nearInstanceLower = new Artwork(1, "Magnificent Chefu", 25.01, 45.01, 25, 30, 45, 60);
+            correctInstance = new Artwork("Magnificent Chef", 27.5, 50, 25, 30, 45, 60);
+            wrongInstance = new Artwork("Magnificent Chefs", 34, 64, 25, 30, 45, 60);
+            nearInstanceUpper = new Artwork("Magnificent Chefu", 29.99, 59.99, 25, 30, 45, 60);
+            nearInstanceLower = new Artwork("Magnificent Chefu", 25.01, 45.01, 25, 30, 45, 60);
         }
 
         [TestMethod()]
