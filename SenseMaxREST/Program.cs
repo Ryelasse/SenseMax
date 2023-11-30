@@ -11,7 +11,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services.AddDbContext<ProfileDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
 
@@ -21,6 +20,11 @@ builder.Services.AddDbContext<ArtworkDbContext>(options =>
 // Registrer dit repository som en scoped service.
 builder.Services.AddScoped<IRepositoryDB<Profile>, ProfileRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Artwork>, ArtworkRepositoryDB>();
+
+builder.Services.AddCors(option =>
+    option.AddPolicy("Allow All",
+    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
+    );
 
 var app = builder.Build();
 
