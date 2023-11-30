@@ -22,12 +22,14 @@ builder.Services.AddDbContext<ExhibitDBContext>(options =>
 
 builder.Services.AddDbContext<TicketDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
-
+builder.Services.AddDbContext<DutyDBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
 // Registrer dit repository som en scoped service.
 builder.Services.AddScoped<IRepositoryDB<Profile>, ProfileRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Artwork>, ArtworkRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Exhibit>, ExhibitRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Ticket>, TicketRepositoryDB>();
+builder.Services.AddScoped<IRepositoryDB<Duty>, DutyRepositoryDB>();
 builder.Services.AddCors(option =>
     option.AddPolicy("AllowAll",
     builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
