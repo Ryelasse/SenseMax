@@ -10,9 +10,9 @@ namespace SenseMaxREST.Controllers
     [ApiController]
     public class ProfilesController : ControllerBase
     {
-        private IProfileRepositoryDB _data;
+        private IRepositoryDB<Profile> _data;
         
-        public ProfilesController(IProfileRepositoryDB data)
+        public ProfilesController(IRepositoryDB<Profile> data)
         {
             _data = data;
         }
@@ -25,7 +25,7 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                IEnumerable<Profile> profiles = _data.GetProfiles();
+                IEnumerable<Profile> profiles = _data.GetEntities();
                 return Ok(profiles);
             } 
             catch (InvalidOperationException ioex)
@@ -44,7 +44,7 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile foundProfile = _data.GetProfileById(id);
+                Profile foundProfile = _data.GetEntityById(id);
                 return Ok(foundProfile);
             }
             catch (KeyNotFoundException knfex)
@@ -62,7 +62,7 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile NewProfile = _data.AddProfile(profile);
+                Profile NewProfile = _data.AddEntity(profile);
                 return Created("A new profile was created: ", profile);
             }
             catch (ArgumentOutOfRangeException ex)
@@ -85,7 +85,7 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile? oldProfile = _data.UpdateProfile(id, newValues);
+                Profile? oldProfile = _data.UpdateEntity(id, newValues);
                 return Created("Oenskede profil blev opdateret", newValues);
             }
             catch (KeyNotFoundException knfex)
@@ -103,7 +103,7 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile? profile = _data.DeleteProfile(id);
+                Profile? profile = _data.DeleteEntity(id);
                 return Ok($"profil med id {id} blev slettet");
             } 
             catch (KeyNotFoundException ex)

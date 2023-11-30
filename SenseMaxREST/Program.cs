@@ -16,7 +16,7 @@ builder.Services.AddDbContext<ProfileDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
 
 // Registrer dit repository som en scoped service.
-builder.Services.AddScoped<IProfileRepositoryDB, ProfileRepositoryDB>();
+builder.Services.AddScoped<IRepositoryDB<Profile>, ProfileRepositoryDB>();
 
 var app = builder.Build();
 

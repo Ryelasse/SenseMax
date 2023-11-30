@@ -1,7 +1,7 @@
 ﻿namespace SenseRepositoryDB;
 using SenseMax;
 
-public class ProfileRepositoryDB : IProfileRepositoryDB
+public class ProfileRepositoryDB : IRepositoryDB<Profile>
 {
     private readonly ProfileDBContext _context;
 
@@ -11,7 +11,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         _context = dbContext;
     }
 
-    public Profile? AddProfile(Profile profile)
+    public Profile? AddEntity(Profile profile)
     {
         try
         {
@@ -29,9 +29,9 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         }
     }
 
-    public Profile? DeleteProfile(int id)
+    public Profile? DeleteEntity(int id)
     {
-        Profile? foundProfile = GetProfileById(id);
+        Profile? foundProfile = GetEntityById(id);
         
         if (foundProfile != null)
         {
@@ -45,7 +45,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         return foundProfile;
     }
 
-    public IEnumerable<Profile> GetProfiles()
+    public IEnumerable<Profile> GetEntities()
     {
         IQueryable<Profile> profiles = _context.Profile.AsQueryable();
 
@@ -57,7 +57,7 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         return profiles;
     }
 
-    public Profile? GetProfileById(int id)
+    public Profile? GetEntityById(int id)
     {
         Profile? profile = _context.Profile.FirstOrDefault(p => p.ProfileId == id);
         
@@ -68,9 +68,9 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         return profile;
     }
 
-    public Profile? UpdateProfile(int id, Profile data)
+    public Profile? UpdateEntity(int id, Profile data)
     {
-        Profile? profileToUpdate = GetProfileById(id);
+        Profile? profileToUpdate = GetEntityById(id);
 
         if (profileToUpdate != null)
         {
