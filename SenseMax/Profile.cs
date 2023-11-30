@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace SenseMax;
+namespace SenseMax { 
 
 public enum Type {
     Curator,
@@ -75,4 +75,5 @@ public class Profile
     }
     
     #endregion
+    }
 }
