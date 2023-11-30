@@ -45,40 +45,16 @@ public class ProfileRepositoryDB : IProfileRepositoryDB
         return foundProfile;
     }
 
-    public IEnumerable<Profile> GetProfiles(int? idAfter = null, string? nameIncludes = null, string? orderBy = null)
+    public IEnumerable<Profile> GetProfiles()
     {
-        IQueryable<Profile> filter = _context.Profile.AsQueryable();
+        IQueryable<Profile> profiles = _context.Profile.AsQueryable();
 
-        if (nameIncludes != null)
-        {
-            filter = filter.Where(p => p.ProfileId > idAfter);
-        }
-
-        if (nameIncludes != null)
-        {
-            filter = filter.Where(p => p.ProfileName.Contains(nameIncludes));
-        }
-
-        if (orderBy != null)
-        {
-            orderBy = orderBy.ToLower();
-            switch (orderBy)
-            {
-                case "name":
-                case "name_asc":
-                    filter = filter.OrderBy(p => p.ProfileName);
-                    break;
-                default:
-                    throw new ArgumentException("Ukendt filter: " + orderBy);
-            }
-        }
-
-        if (!filter.Any())
+        if (!profiles.Any())
         {
             throw new InvalidOperationException("Listen er tom.");
         }
 
-        return filter;
+        return profiles;
     }
 
     public Profile? GetProfileById(int id)
