@@ -8,11 +8,11 @@ namespace SenseMaxREST.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExhibitController : ControllerBase
+    public class ExhibitsController : ControllerBase
     {
         private IRepositoryDB<Exhibit> _data;
 
-        public ExhibitController(IRepositoryDB<Exhibit> data)
+        public ExhibitsController(IRepositoryDB<Exhibit> data)
         {
             _data = data;
         }
