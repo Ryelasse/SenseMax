@@ -56,7 +56,7 @@ public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
 
     public Artwork? GetEntityById(int id)
     {
-        Artwork? artwork = _context.Artwork.FirstOrDefault(a => a.ArtId == id);
+        Artwork? artwork = _context.Artwork.FirstOrDefault(a => a.ArtworkId == id);
         
         if (artwork == null)
         {
@@ -71,7 +71,7 @@ public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
 
         if (artworkToUpdate != null)
         {
-            artworkToUpdate.Name = data.Name;
+            artworkToUpdate.ArtworkName = data.ArtworkName;
             artworkToUpdate.ActualTemp = data.ActualTemp;
             artworkToUpdate.ActualHumidity = data.ActualHumidity;
             artworkToUpdate.MinTemp = data.MinTemp;
