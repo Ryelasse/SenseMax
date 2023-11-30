@@ -15,8 +15,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ProfileDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
 
+builder.Services.AddDbContext<ArtworkDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString(Secret.GetConnectionString)));
+
 // Registrer dit repository som en scoped service.
 builder.Services.AddScoped<IRepositoryDB<Profile>, ProfileRepositoryDB>();
+builder.Services.AddScoped<IRepositoryDB<Artwork>, ArtworkRepositoryDB>();
 
 var app = builder.Build();
 

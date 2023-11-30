@@ -2,7 +2,7 @@
 {
     public class Artwork
     {
-        public int ArtId { get; set; }
+        public int ArtId { get; private set; }
         public string Name { get; set; }
         public double ActualTemp { get; set; }
         public double ActualHumidity { get; set; }
@@ -12,9 +12,8 @@
         public double MaxHumidity { get; set; }
 
         public Artwork() { }
-        public Artwork(int artid, string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity)
+        public Artwork(string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity)
         {
-            ArtId = artid;
             Name = name;
             ActualTemp = actualtemp;
             ActualHumidity = actualhumidity;

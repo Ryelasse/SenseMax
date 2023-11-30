@@ -1,23 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SenseMax;
 using SenseRepositoryDB;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SenseMaxREST.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfilesController : ControllerBase
+    public class ArtworksController : ControllerBase
     {
-        private IRepositoryDB<Profile> _data;
+        private IRepositoryDB<Artwork> _data;
         
-        public ProfilesController(IRepositoryDB<Profile> data)
+        public ArtworksController(IRepositoryDB<Artwork> data)
         {
             _data = data;
         }
-
-        // GET: api/<ProfilesController>
+        
+        // GET: api/Artworks
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -25,8 +28,8 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                IEnumerable<Profile> profiles = _data.GetEntities();
-                return Ok(profiles);
+                IEnumerable<Artwork> artworks = _data.GetEntities();
+                return Ok(artworks);
             } 
             catch (InvalidOperationException ioex)
             {
@@ -34,8 +37,7 @@ namespace SenseMaxREST.Controllers
             }
         }
 
-
-        // GET api/<ProfilesController>/5
+        // GET: api/Artworks/5
         [HttpGet]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,8 +46,8 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile foundProfile = _data.GetEntityById(id);
-                return Ok(foundProfile);
+                Artwork foundArtwork = _data.GetEntityById(id);
+                return Ok(foundArtwork);
             }
             catch (KeyNotFoundException knfex)
             {
@@ -53,39 +55,34 @@ namespace SenseMaxREST.Controllers
             }
         }
 
-        // POST api/<ProfilesController>
+        // POST: api/Artworks
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] Profile profile)
+        public IActionResult Post([FromBody] Artwork artwork)
         {
             try
             {
-                Profile NewProfile = _data.AddEntity(profile);
-                return Created("A new profile was created: ", profile);
+                Artwork newArtwork = _data.AddEntity(artwork);
+                return Created("A new profile was created: ", artwork);
             }
             catch (ArgumentOutOfRangeException ex)
             {
                 return BadRequest("Profilnavn opfylder ikke kravene.");
             } 
-            catch (ArgumentException aex)
-            {
-                return BadRequest("Kodeordet opfylder ikke kravene.");
-            }
-
         }
 
-        // PUT api/<ProfilesController>/5
+        // PUT: api/Artworks/5
         [HttpPut]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Put(int id, [FromBody] Profile newValues)
+        public IActionResult Put(int id, [FromBody] Artwork newValues)
         {
             try
             {
-                Profile? oldProfile = _data.UpdateEntity(id, newValues);
-                return Created("Oenskede profil blev opdateret", newValues);
+                Artwork? oldArtwork = _data.UpdateEntity(id, newValues);
+                return Created("Oenskede artwork blev opdateret", newValues);
             }
             catch (KeyNotFoundException knfex)
             {
@@ -93,7 +90,7 @@ namespace SenseMaxREST.Controllers
             }
         }
 
-        // DELETE api/<ProfilesController>/5
+        // DELETE: api/Artworks/5
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -102,12 +99,12 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile? profile = _data.DeleteEntity(id);
-                return Ok($"profil med id {id} blev slettet");
+                Artwork? artwork = _data.DeleteEntity(id);
+                return Ok($"Artwork med id {id} blev slettet");
             } 
             catch (KeyNotFoundException ex)
             {
-                return NotFound($"Profil med id {id} blev ikke fundet");
+                return NotFound($"Artwork med id {id} blev ikke fundet");
             }
 
         }
