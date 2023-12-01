@@ -77,8 +77,8 @@ namespace SenseRepositoryDB
             if (ticketToUpdate != null)
             {
                 ticketToUpdate.TicketResolved = data.TicketResolved;
-                ticketToUpdate.ResolvedBy = data.ResolvedBy;
                 ticketToUpdate.ArtworkInvolved = data.ArtworkInvolved;
+                ticketToUpdate.TicketArea = data.TicketArea;
 
 
                 _context.Ticket.Update(ticketToUpdate);

@@ -1,15 +1,18 @@
 using SenseMax;
+using System.ComponentModel.Design;
 
 namespace SenseRepositoryDB;
 
 public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
 {
     private readonly ArtworkDbContext _context;
+    private readonly TicketRepositoryDB _ticketRepository;
 
     public ArtworkRepositoryDB(ArtworkDbContext dbContext)
     {
         dbContext.Database.EnsureCreated();
         _context = dbContext;
+      
     }
 
     public Artwork? AddEntity(Artwork artwork)
@@ -29,7 +32,7 @@ public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
     public Artwork? DeleteEntity(int id)
     {
         Artwork? foundArtwork = GetEntityById(id);
-        
+
         if (foundArtwork != null)
         {
             _context.Artwork.Remove(foundArtwork);
@@ -57,7 +60,7 @@ public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
     public Artwork? GetEntityById(int id)
     {
         Artwork? artwork = _context.Artwork.FirstOrDefault(a => a.ArtworkId == id);
-        
+
         if (artwork == null)
         {
             throw new KeyNotFoundException($"Id: {id} findes ikke i databasen");
@@ -71,7 +74,6 @@ public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
 
         if (artworkToUpdate != null)
         {
-            artworkToUpdate.ArtworkName = data.ArtworkName;
             artworkToUpdate.ActualTemp = data.ActualTemp;
             artworkToUpdate.ActualHumidity = data.ActualHumidity;
             artworkToUpdate.MinTemp = data.MinTemp;
@@ -79,8 +81,13 @@ public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
             artworkToUpdate.MinHumidity = data.MinHumidity;
             artworkToUpdate.MaxHumidity = data.MaxHumidity;
 
+          
             _context.Artwork.Update(artworkToUpdate);
             _context.SaveChanges();
+
+            CreateTemperatureTicket(artworkToUpdate);
+            CreateHumidityTicket(artworkToUpdate);
+
         }
         else
         {
@@ -88,4 +95,39 @@ public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
         }
         return artworkToUpdate;
     }
+
+
+    public void CreateTemperatureTicket(Artwork artwork)
+    {
+        if (artwork.ActualTemp > artwork.MaxTemp)
+        {
+            _ticketRepository.AddEntity(new Ticket(DateTime.Now, ticketResolved: false, artwork.ArtworkId, TicketArea.TempHigh));
+        }
+        else if (artwork.ActualTemp < artwork.MinTemp)
+        {
+                _ticketRepository.AddEntity(new Ticket(DateTime.Now, ticketResolved: false, artwork.ArtworkId, TicketArea.TempLow));
+        }
+       
+    }
+
+    public Ticket CreateHumidityTicket(Artwork artwork)
+    {
+        if (artwork.ActualHumidity > artwork.MaxHumidity)
+        {
+            return _ticketRepository.AddEntity(new Ticket(DateTime.Now, ticketResolved: false, artwork.ArtworkId, TicketArea.HumidityHigh));
+        }
+        else if (artwork.ActualHumidity < artwork.MinHumidity)
+        {
+            return _ticketRepository.AddEntity(new Ticket(DateTime.Now, ticketResolved: false, artwork.ArtworkId, TicketArea.HumidityLow));
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }
+
+
+
+
