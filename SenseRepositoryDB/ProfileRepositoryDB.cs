@@ -76,7 +76,7 @@ public class ProfileRepositoryDB : IRepositoryDB<Profile>
         {
             profileToUpdate.ProfileName = data.ProfileName;
             profileToUpdate.Password = data.Password;
-            profileToUpdate.ProfilPicture = data.ProfilPicture;
+            profileToUpdate.ProfilePicture = data.ProfilePicture;
 
             _context.Profile.Update(profileToUpdate);
             _context.SaveChanges();

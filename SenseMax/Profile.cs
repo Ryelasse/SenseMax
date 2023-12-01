@@ -25,7 +25,7 @@ public class Profile
         ProfileName = profileName;
         Password = password;
         ProfileType = profileType;
-        ProfilPicture = profilePicture;
+        ProfilePicture = profilePicture;
     }
     #endregion
 
@@ -66,7 +66,7 @@ public class Profile
     }
     public Type ProfileType { get; set; }
     
-    public string ProfilPicture { get; set; }
+    public string ProfilePicture { get; set; }
     
     #endregion
     

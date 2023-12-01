@@ -30,6 +30,7 @@ builder.Services.AddScoped<IRepositoryDB<Artwork>, ArtworkRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Exhibit>, ExhibitRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Ticket>, TicketRepositoryDB>();
 builder.Services.AddScoped<IRepositoryDB<Duty>, DutyRepositoryDB>();
+
 builder.Services.AddCors(option =>
     option.AddPolicy("AllowAll",
     builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
