@@ -6,12 +6,13 @@ namespace SenseRepositoryDB;
 public class ArtworkRepositoryDB : IRepositoryDB<Artwork>
 {
     private readonly ArtworkDbContext _context;
-    private readonly TicketRepositoryDB _ticketRepository;
+    private readonly IRepositoryDB<Ticket> _ticketRepository;
 
-    public ArtworkRepositoryDB(ArtworkDbContext dbContext)
+    public ArtworkRepositoryDB(ArtworkDbContext dbContext, IRepositoryDB<Ticket> ticketRepository)
     {
         dbContext.Database.EnsureCreated();
         _context = dbContext;
+        _ticketRepository = ticketRepository;
       
     }
 
