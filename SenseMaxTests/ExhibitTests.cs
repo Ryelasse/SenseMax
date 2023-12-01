@@ -11,7 +11,7 @@ namespace SenseMax.Tests
     [TestClass()]
     public class ExhibitTests
     {
-        private Exhibit? instance; //instance variable, used to store an instance of Profile, that i can use in my test methods.
+        private Exhibit? instance; //instance variable, used to store an instance of Exhibits, that i can use in my test methods.
 
         [TestInitialize]
         public void TestInitialize()
