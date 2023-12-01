@@ -6,10 +6,7 @@ using SenseRepositoryDB;
 
 namespace SenseMaxREST.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class DutyController : ControllerBase
-    {
+   
         [Route("api/[controller]")]
         [ApiController]
         public class DutiesController : ControllerBase
@@ -110,5 +107,5 @@ namespace SenseMaxREST.Controllers
 
             }
         }
-    }
+    
 }
