@@ -8,16 +8,18 @@ namespace SenseMaxREST.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfilesController : ControllerBase
+
+    // GET: api/<TicketController>
+    public class TicketController : ControllerBase
     {
-        private IRepositoryDB<Profile> _data;
-        
-        public ProfilesController(IRepositoryDB<Profile> data)
+        private IRepositoryDB<Ticket> _data;
+
+        public TicketController(IRepositoryDB<Ticket> data)
         {
             _data = data;
         }
 
-        // GET: api/<ProfilesController>
+        // GET: api/Artworks
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -25,17 +27,16 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                IEnumerable<Profile> profiles = _data.GetEntities();
-                return Ok(profiles);
-            } 
+                IEnumerable<Ticket> tickets = _data.GetEntities();
+                return Ok(tickets);
+            }
             catch (InvalidOperationException ioex)
             {
                 return NoContent();
             }
         }
 
-
-        // GET api/<ProfilesController>/5
+        // GET: api/Artworks/5
         [HttpGet]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,8 +45,8 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile foundProfile = _data.GetEntityById(id);
-                return Ok(foundProfile);
+                Ticket foundTicket = _data.GetEntityById(id);
+                return Ok(foundTicket);
             }
             catch (KeyNotFoundException knfex)
             {
@@ -53,39 +54,34 @@ namespace SenseMaxREST.Controllers
             }
         }
 
-        // POST api/<ProfilesController>
+        // POST: api/Artworks
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Post([FromBody] Profile profile)
+        public IActionResult Post([FromBody] Ticket ticket)
         {
             try
             {
-                Profile NewProfile = _data.AddEntity(profile);
-                return Created("A new profile was created: ", profile);
+                Ticket newTicket = _data.AddEntity(ticket);
+                return Created("A new ticket was created: ", ticket);
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                return BadRequest("Profilnavn opfylder ikke kravene.");
-            } 
-            catch (ArgumentException aex)
-            {
-                return BadRequest("Kodeordet opfylder ikke kravene.");
+                return BadRequest("Ticket opfylder ikke kravene.");
             }
-
         }
 
-        // PUT api/<ProfilesController>/5
+        // PUT: api/Artworks/5
         [HttpPut]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Put(int id, [FromBody] Profile newValues)
+        public IActionResult Put(int id, [FromBody] Ticket newValues)
         {
             try
             {
-                Profile? oldProfile = _data.UpdateEntity(id, newValues);
-                return Created("Oenskede profil blev opdateret", newValues);
+                Ticket? oldTicket = _data.UpdateEntity(id, newValues);
+                return Created("Oenskede ticket blev opdateret", newValues);
             }
             catch (KeyNotFoundException knfex)
             {
@@ -93,7 +89,7 @@ namespace SenseMaxREST.Controllers
             }
         }
 
-        // DELETE api/<ProfilesController>/5
+        // DELETE: api/Artworks/5
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -102,14 +98,15 @@ namespace SenseMaxREST.Controllers
         {
             try
             {
-                Profile? profile = _data.DeleteEntity(id);
-                return Ok($"profil med id {id} blev slettet");
-            } 
+                Ticket? ticket = _data.DeleteEntity(id);
+                return Ok($"Ticket med id {id} blev slettet");
+            }
             catch (KeyNotFoundException ex)
             {
-                return NotFound($"Profil med id {id} blev ikke fundet");
+                return NotFound($"Artwork med id {id} blev ikke fundet");
             }
 
         }
     }
+        
 }

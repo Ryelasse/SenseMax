@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace SenseMax
 {
+
+    public enum TicketArea { TempHigh, TempLow, HumidityHigh, HumidityLow}
     public class Ticket
     {
-        public int TicketId { get; set; }
+        public int TicketId { get; private set; }
         public DateTime TicketDate { get; set; }
         public bool TicketResolved { get; set; }
-        public int ResolvedBy { get; set; }
         public int ArtworkInvolved { get; set; }
+        public TicketArea TicketArea { get; set; }
 
         public Ticket() { }
 
-        public Ticket(int ticketId, DateTime ticketDate, bool ticketResolved, int resolvedBy, int artworkInvolved)
+        public Ticket(DateTime ticketDate, bool ticketResolved, int artworkInvolved, TicketArea ticketArea)
         {
-            TicketId = ticketId;
             TicketDate = ticketDate;
             TicketResolved = ticketResolved;
-            ResolvedBy = resolvedBy;
             ArtworkInvolved = artworkInvolved;
+            TicketArea = ticketArea;
         }
 
         public override string ToString()
         {
-            return $"Ticket id: {TicketId}, Ticket date: {TicketDate}, Is ticket resolved: {TicketResolved}, " +
-                   $"Resolved by employee: {ResolvedBy}, Artwork involved: {ArtworkInvolved}";
+            return $"Ticket id: {TicketId}, Ticket date: {TicketDate}, Is ticket resolved: {TicketResolved}, Artwork involved: {ArtworkInvolved}";
         }
     }
 }
