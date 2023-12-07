@@ -10,10 +10,11 @@
         public double MaxTemp { get; set; }
         public double MinHumidity { get; set; }
         public double MaxHumidity { get; set; }
+        public int ExhibitId { get; set; }
         public string ArtworkPicture { get; set; }
 
         public Artwork() { }
-        public Artwork(string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity, string artworkPicture)
+        public Artwork(string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity, int exhibitid, string artworkPicture)
         {
             ArtworkName = name;
             ActualTemp = actualtemp;
@@ -22,6 +23,7 @@
             MaxTemp = maxtemp;
             MinHumidity = minhumidity;
             MaxHumidity = maxhumidity;
+            ExhibitId = exhibitid;
             ArtworkPicture = artworkPicture;
 
         }
@@ -54,9 +56,10 @@
             ValidateHumidity();
             ValidateTemp();
         }
+
         public override string ToString()
         {
-            return $"{{{nameof(ArtworkId)}={ArtworkId.ToString()}, {nameof(ArtworkName)}={ArtworkName}, {nameof(ActualTemp)}={ActualTemp.ToString()}, {nameof(ActualHumidity)}={ActualHumidity.ToString()}, {nameof(MinTemp)}={MinTemp.ToString()}, {nameof(MaxTemp)}={MaxTemp.ToString()}, {nameof(MinHumidity)}={MinHumidity.ToString()}, {nameof(MaxHumidity)}={MaxHumidity.ToString()}}}";
+            return $"{{{nameof(ArtworkId)}={ArtworkId.ToString()}, {nameof(ArtworkName)}={ArtworkName}, {nameof(ActualTemp)}={ActualTemp.ToString()}, {nameof(ActualHumidity)}={ActualHumidity.ToString()}, {nameof(MinTemp)}={MinTemp.ToString()}, {nameof(MaxTemp)}={MaxTemp.ToString()}, {nameof(MinHumidity)}={MinHumidity.ToString()}, {nameof(MaxHumidity)}={MaxHumidity.ToString()}, {nameof(ExhibitId)}={ExhibitId.ToString()}, {nameof(ArtworkPicture)}={ArtworkPicture}}}";
         }
     }
 }
