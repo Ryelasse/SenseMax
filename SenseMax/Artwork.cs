@@ -10,9 +10,10 @@
         public double MaxTemp { get; set; }
         public double MinHumidity { get; set; }
         public double MaxHumidity { get; set; }
+        public string ArtworkPicture { get; set; }
 
         public Artwork() { }
-        public Artwork(string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity)
+        public Artwork(string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity, string artworkPicture)
         {
             ArtworkName = name;
             ActualTemp = actualtemp;
@@ -21,6 +22,7 @@
             MaxTemp = maxtemp;
             MinHumidity = minhumidity;
             MaxHumidity = maxhumidity;
+            ArtworkPicture = artworkPicture;
 
         }
 
