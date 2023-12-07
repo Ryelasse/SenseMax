@@ -2,7 +2,7 @@
 {
     public class Artwork
     {
-        public int ArtworkId { get; private set; }
+        public int    ArtworkId { get; private set; }
         public string ArtworkName { get; set; }
         public double ActualTemp { get; set; }
         public double ActualHumidity { get; set; }
@@ -10,20 +10,20 @@
         public double MaxTemp { get; set; }
         public double MinHumidity { get; set; }
         public double MaxHumidity { get; set; }
-        public int ExhibitId { get; set; }
+        public int    ExhibitId { get; set; }
         public string ArtworkPicture { get; set; }
 
         public Artwork() { }
         public Artwork(string name, double actualtemp, double actualhumidity, double mintemp, double maxtemp, double minhumidity, double maxhumidity, int exhibitid, string artworkPicture)
         {
-            ArtworkName = name;
-            ActualTemp = actualtemp;
+            ArtworkName    = name;
+            ActualTemp     = actualtemp;
             ActualHumidity = actualhumidity;
-            MinTemp = mintemp;
-            MaxTemp = maxtemp;
-            MinHumidity = minhumidity;
-            MaxHumidity = maxhumidity;
-            ExhibitId = exhibitid;
+            MinTemp        = mintemp;
+            MaxTemp        = maxtemp;
+            MinHumidity    = minhumidity;
+            MaxHumidity    = maxhumidity;
+            ExhibitId      = exhibitid;
             ArtworkPicture = artworkPicture;
 
         }
